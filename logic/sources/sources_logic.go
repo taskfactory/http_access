@@ -2,7 +2,7 @@ package sources
 
 import (
 	"context"
-	
+
 	"github.com/taskfactory/http_access/client/admin"
 	"github.com/taskfactory/http_access/common/errs"
 	"github.com/taskfactory/http_access/entity"
@@ -11,7 +11,7 @@ import (
 )
 
 // GetSources 查询数据源列表
-func GetSources(ctx context.Context, req *entity.GetSourcesReq) ([]proto.Source, error) {
+func GetSources(ctx context.Context, req *entity.GetSourcesReq) (*proto.SourcePagination, error) {
 	if req.Page == 0 {
 		req.Page = 1
 	}

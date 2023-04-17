@@ -14,7 +14,7 @@ const (
 )
 
 // GetSources 获取数据源列表
-func GetSources(ctx context.Context, sname string, page, pageSize int32) ([]proto.Source, error) {
+func GetSources(ctx context.Context, sname string, page, pageSize int32) (*proto.SourcePagination, error) {
 	app := new(proto.AdminService)
 	tars.NewCommunicator().StringToProxy(adminServantObj, app)
 	req := &proto.GetSourcesReq{
@@ -28,7 +28,7 @@ func GetSources(ctx context.Context, sname string, page, pageSize int32) ([]prot
 		return nil, err
 	}
 
-	return rsp.Sources, nil
+	return &rsp.Data, nil
 }
 
 // Upsert 创建或更新数据源

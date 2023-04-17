@@ -16,7 +16,7 @@ func GetSources(c *gin.Context) {
 		Page:     int32(query.GetInt(c, "page")),
 		PageSize: int32(query.GetInt(c, "pageSize")),
 	}
-	data, err := sources.GetSources(c.Request.Context(), req)
+	rsp, err := sources.GetSources(c.Request.Context(), req)
 	if err != nil {
 		c.JSON(200, gin.H{
 			"code": errs.Code(err),
@@ -28,14 +28,14 @@ func GetSources(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"code": errs.CodeOK,
 		"msg":  "succeed",
-		"data": data,
+		"data": rsp,
 	})
 }
 
 // Upsert 更新或创建数据
 func Upsert(c *gin.Context) {
 	req := new(entity.UpsertSourceReq)
-	err := c.Bind(req)
+	err := c.BindJSON(req)
 	if err != nil {
 		c.JSON(200, gin.H{
 			"code": errs.CodeInternal,
@@ -44,7 +44,7 @@ func Upsert(c *gin.Context) {
 		return
 	}
 
-	data, err := sources.UpsertSource(c.Request.Context(), req)
+	rsp, err := sources.UpsertSource(c.Request.Context(), req)
 	if err != nil {
 		c.JSON(200, gin.H{
 			"code": errs.Code(err),
@@ -56,6 +56,6 @@ func Upsert(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"code": errs.CodeOK,
 		"msg":  "succeed",
-		"data": data,
+		"data": rsp,
 	})
 }
